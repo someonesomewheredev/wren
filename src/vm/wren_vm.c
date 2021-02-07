@@ -7,6 +7,7 @@
 #include "wren_core.h"
 #include "wren_debug.h"
 #include "wren_primitive.h"
+#include "wren_value.h"
 #include "wren_vm.h"
 
 #if WREN_OPT_META
@@ -1487,6 +1488,13 @@ WrenInterpretResult wrenInterpret(WrenVM* vm, const char* module,
   return runInterpreter(vm, fiber);
 }
 
+void wrenUnloadModule(WrenVM* vm, const char* module)
+{
+  Value nameValue = wrenNewString(vm, module);
+  wrenMapRemoveKey(vm, vm->modules, nameValue);
+  wrenFreeObj(vm, AS_OBJ(nameValue));
+}
+
 ObjClosure* wrenCompileSource(WrenVM* vm, const char* module, const char* source,
                             bool isExpression, bool printErrors)
 {
@@ -1897,7 +1905,11 @@ void wrenGetVariable(WrenVM* vm, const char* module, const char* name,
 
   int variableSlot = wrenSymbolTableFind(&moduleObj->variableNames,
                                          name, strlen(name));
-  ASSERT(variableSlot != -1, "Could not find variable.");
+  if (variableSlot == -1)
+  {
+      wrenSetSlotNull(vm, slot);
+      return;
+  }
   
   setSlot(vm, slot, moduleObj->variables.data[variableSlot]);
 }
@@ -1951,3 +1963,4 @@ void wrenSetUserData(WrenVM* vm, void* userData)
 {
 	vm->config.userData = userData;
 }
+

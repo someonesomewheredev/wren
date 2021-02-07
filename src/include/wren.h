@@ -538,4 +538,7 @@ void* wrenGetUserData(WrenVM* vm);
 // Sets user data associated with the WrenVM.
 void wrenSetUserData(WrenVM* vm, void* userData);
 
+// Unloads the specified module.
+void wrenUnloadModule(WrenVM* vm, const char* module);
+
 #endif
