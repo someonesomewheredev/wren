@@ -25,7 +25,7 @@ The value of &pi;.
 
 ### Num.**tau**
 
-The value of &tau;.
+The value of &tau;. This is equivalent to ```2 * Num.pi```.
 
 ### Num.**largest**
 
@@ -62,6 +62,10 @@ The arc tangent of the number.
 The arc tangent of the number when divided by `x`, using the signs of the two
 numbers to determine the quadrant of the result.
 
+### **cbrt**
+
+The cube root of the number.
+
 ### **ceil**
 
 Rounds the number up to the nearest integer.
@@ -82,6 +86,17 @@ Rounds the number down to the nearest integer.
 <pre class="snippet">
 System.print(1.5.floor)    //> 1
 System.print((-3.2).floor) //> -4
+</pre>
+
+### **fraction**
+
+The fractional part of a number i.e. the part after any decimal point.
+
+The returned value has the same sign as `this`.
+
+<pre class="snippet">
+System.print(1.5.fraction)    //> 0.5
+System.print((-3.2).fraction) //> -0.2
 </pre>
 
 ### **isInfinity**
@@ -164,6 +179,21 @@ The square root of the number. Returns `nan` if the number is negative.
 
 The tangent of the number.
 
+### **toString**
+
+The string representation of the number.
+
+### **truncate**
+
+Rounds the number to the nearest integer towards zero.
+
+It is therefore equivalent to `floor` if the number is non-negative or `ceil` if it is negative.
+
+<pre class="snippet">
+System.print(1.5.truncate)    //> 1
+System.print((-3.2).truncate) //> -3
+</pre>
+
 ### **-** operator
 
 Negates the number.
@@ -212,6 +242,24 @@ It is a runtime error if `other` is not a number.
 Performs bitwise or on the number. Both numbers are first converted to 32-bit
 unsigned values. The result is then a 32-bit unsigned number where each bit is
 `true` only where the corresponding bits of one or both inputs were `true`.
+
+It is a runtime error if `other` is not a number.
+
+### **^**(other) operator
+
+Performs bitwise exclusive or on the number. Both numbers are first converted to 32-bit unsigned values. The result is then a 32-bit unsigned number where each bit is `true` only where the corresponding bits of one (but not both) inputs were `true`. Each bit is therefore `false` if the corresponding bits of both inputs were either both `true` or both `false`.
+
+It is a runtime error if `other` is not a number.
+
+### **<<**(other) operator
+
+Performs a bitwise left shift on the number. Internally, both numbers are first converted to 32-bit unsigned values and C's left shift operator is then applied to them.
+
+It is a runtime error if `other` is not a number.
+
+### **>>**(other) operator
+
+Performs a bitwise right shift on the number. Internally, both numbers are first converted to 32-bit unsigned values and C's right shift operator is then applied to them.
 
 It is a runtime error if `other` is not a number.
 
