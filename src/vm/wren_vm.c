@@ -1492,7 +1492,6 @@ void wrenUnloadModule(WrenVM* vm, const char* module)
 {
   Value nameValue = wrenNewString(vm, module);
   wrenMapRemoveKey(vm, vm->modules, nameValue);
-  wrenFreeObj(vm, AS_OBJ(nameValue));
 }
 
 ObjClosure* wrenCompileSource(WrenVM* vm, const char* module, const char* source,
