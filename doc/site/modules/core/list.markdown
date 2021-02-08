@@ -22,7 +22,19 @@ Creates a new empty list. Equivalent to `[]`.
 
 ### **add**(item)
 
-Appends `item` to the end of the list.
+Appends `item` to the end of the list. Returns the added item.
+
+### **addAll**(other)
+
+Appends each element of `other` in the same order to the end of the list. `other` must be [an iterable](../../control-flow.html#the-iterator-protocol).
+
+<pre class="snippet">
+var list = [0, 1, 2, 3, 4]
+list.addAll([5, 6])
+System.print(list) //> [0, 1, 2, 3, 4, 5, 6]
+</pre>
+
+Returns the added items.
 
 ### **clear**()
 
@@ -148,7 +160,17 @@ var list = ["a", "b", "c"]
 System.print(list[1]) //> b
 </pre>
 
-It is a runtime error if the index is not an integer or is out of bounds.
+If `index` is a [Range](range.html), a new list is populated from the elements
+in the range.
+
+<pre class="snippet">
+var list = ["a", "b", "c"]
+System.print(list[0..1]) //> [a, b]
+</pre>
+
+You can use `list[0..-1]` to shallow-copy a list.
+
+It is a runtime error if the index is not an integer or range, or is out of bounds.
 
 ### **[**index**]=**(item) operator
 
@@ -165,11 +187,21 @@ It is a runtime error if the index is not an integer or is out of bounds.
 
 ### **+**(other) operator
 
- Appends a list to the end of the list (concatenation). `other` must be a `List`.
+ Appends a list to the end of the list (concatenation). `other` must be [an iterable](../../control-flow.html#the-iterator-protocol).
 
 <pre class="snippet">
 var letters = ["a", "b", "c"]
 var other = ["d", "e", "f"]
 var combined = letters + other
 System.print(combined)  //> [a, b, c, d, e, f]
+</pre>
+
+### **\***(count) operator
+
+Creates a new list by repeating this one ```count``` times. It is a runtime error if ```count``` is not a non-negative integer.
+
+<pre class="snippet">
+var digits = [1, 2]
+var tripleDigits = digits * 3
+System.print(tripleDigits) //> [1, 2, 1, 2, 1, 2] 
 </pre>
